@@ -53,7 +53,13 @@ function showWeather(response) {
     response.data.wind.speed
   );
   document.querySelector("#description").innerHTML =
-    response.data.weather[0].main;
+    response.data.weather[0].description;
+  document.querySelector("#max-temp").innerHTML = Math.round(
+    response.data.main.temp_max
+  );
+  document.querySelector("#min-temp").innerHTML = Math.round(
+    response.data.main.temp_min
+  );
 }
 
 function showCity(cityElement) {
@@ -61,6 +67,7 @@ function showCity(cityElement) {
   let units = "imperial";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityElement}&appid=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(showWeather);
+  console.log(apiUrl);
 }
 
 function handleSubmit(event) {

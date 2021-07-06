@@ -25,12 +25,12 @@
       <form id="enterCity">
         <input
           type="text"
-          placeholder="Enter current city"
+          placeholder="Enter city"
           autofocus="on"
           id="cityInput"
         />
         <input class="btn btn-primary" type="submit" value="Search" />
-        <button class="btn btn-success" id="current-location-button">
+        <button class="btn btn-secondary" id="current-location-button">
           Current Location
         </button>
       </form>
@@ -47,12 +47,14 @@
           </h3>
 
           <p>
-            <span id="description">Cloudy</span> <br />
-            Wind: <span id="wind"> 5 </span> km/h<br />
-            Humidity: <span id="humidity">65</span> % <br />
-            90/72°F (32/22°C) <br />
-            Sunrise: 5:32AM <br />
-            Sunset: 8:14PM
+            <ul>
+            <li> <span id="description">Cloudy</span> </li>
+            <li><span id ="max-temp">90</span>/<span id="min-temp">72</span>°F (32/22°C) </li>
+            <li> Wind: <span id="wind"> 5 </span> km/h</li>
+            <li>Humidity: <span id="humidity">65</span> % </li>
+            <li id ="sunrise-time">Sunrise: 5:32AM </li>
+            <li id ="sunset-time">Sunset: 8:14PM</li>
+          </ul>
           </p>
         </div>
         <div class="col-2 hourly1">
@@ -160,9 +162,11 @@
         </div>
       </div>
       <p class="footer">
-        This project was coded by Winnie Wong and is open-sourced on
-        <a href="https://github.com/Winnie1286/Weather-app">GitHub</a> and
-        hosted on Netlify.
+        Coded by Winnie Wong and is open-sourced on
+        <a href="https://github.com/Winnie1286/Weather-app" target="_blank"
+          >GitHub.</a
+        >
+        Hosted on Netlify.
       </p>
     </div>
     <script src="src/index.js"></script>
