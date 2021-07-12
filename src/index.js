@@ -51,6 +51,19 @@ function formatDay(datestamp) {
 }
 
 function displayForecast(response) {
+  console.log(response.data);
+  console.log(response.data.timezone_offset);
+  function formatTime(sunTime) {
+    console.log(sunTime);
+    let sunTimeMS = sunTime * 1000;
+    let dateObject = new Date(sunTimeMS);
+
+    return dateObject.toLocaleString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+    });
+  }
   let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
 
@@ -79,6 +92,20 @@ function displayForecast(response) {
   });
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
+  document.querySelector("#max-temp").innerHTML = Math.round(
+    response.data.daily[0].temp.max
+  );
+  document.querySelector("#min-temp").innerHTML = Math.round(
+    response.data.daily[0].temp.min
+  );
+  document.querySelector("#precipitation").innerHTML =
+    response.data.hourly[0].pop * 100;
+  document.querySelector("#sunrise").innerHTML = `${formatTime(
+    response.data.daily[0].sunrise
+  )}`;
+  document.querySelector("#sunset").innerHTML = `${formatTime(
+    response.data.daily[0].sunset
+  )}`;
 }
 
 function getForecast(coordinates) {
@@ -88,7 +115,6 @@ function getForecast(coordinates) {
 }
 
 function showWeather(response) {
-  console.log(response.data);
   let currentTemperature = Math.round(response.data.main.temp);
   let temperatureElement = document.querySelector("#temperature");
   let iconElement = document.querySelector("#now-icon");
@@ -103,12 +129,7 @@ function showWeather(response) {
   );
   document.querySelector("#description").innerHTML =
     response.data.weather[0].description;
-  document.querySelector("#max-temp").innerHTML = Math.round(
-    response.data.main.temp_max
-  );
-  document.querySelector("#min-temp").innerHTML = Math.round(
-    response.data.main.temp_min
-  );
+
   iconElement.setAttribute(
     "src",
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
