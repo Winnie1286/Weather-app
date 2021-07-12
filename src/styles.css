@@ -1,6 +1,7 @@
 body {
   color: #fff;
-  background-image: url("https://s3.amazonaws.com/shecodesio-production/uploads/files/000/012/327/original/galaxy_color.jpg?1625437210");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
+    url("https://s3.amazonaws.com/shecodesio-production/uploads/files/000/012/327/original/galaxy_color.jpg?1625437210");
   background-size: cover;
   border: 2px dotted #fff;
   margin: 20px 20px;
