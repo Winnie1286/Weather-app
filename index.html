@@ -35,7 +35,7 @@
         </button>
       </form>
       <div class="row">
-        <div class="col-4 current">
+        <div class="col-5 current">
           <h1><span id="city"> New York</span></h1>
           <h3>
             <span class="temperature" id="temperature">74</span>
@@ -47,7 +47,7 @@
           <p>
             <ul>
             <li> <span id="description">Cloudy</span> </li>
-            <li>Range: <span id ="max-temp">90</span>/<span id="min-temp">72</span>°F</li>
+            <li>High | Low: <span id ="max-temp">90</span> | <span id="min-temp">72</span>°F</li>
             <li>Precipitation: <span id="precipitation"></span>%</li>
             <li>Wind: <span id="wind"> 5 </span> miles/hour</li>
             <li>Humidity: <span id="humidity">65</span> % </li>
@@ -56,45 +56,11 @@
           </ul>
           </p>
         </div>
-        <div class="col-2 hourly1">
-          <h5>
-            1:00AM
-            <br />
-            <div class="emoji">
-              <i class="fas fa-wind"></i>
-            </div>
-            72°F/22°C
-          </h5>
+          <div class="col-3 hour" >
+            <h5><div id="hours"></div></h5>
         </div>
-        <div class="col-2 hourly2">
-          <h5>
-            2:00AM
-            <br />
-            <div class="emoji">
-              <i class="fas fa-cloud-moon"></i>
-            </div>
-            71°F/22°C
-          </h5>
-        </div>
-        <div class="col-2 hourly3">
-          <h5>
-            3:00AM
-            <br />
-            <div class="emoji">
-              <i class="fas fa-cloud-moon"></i>
-            </div>
-            69°F/21°C
-          </h5>
-        </div>
-        <div class="col-2 hourly4">
-          <h5>
-            4:00AM
-            <br />
-            <div class="emoji">
-              <i class="fas fa-cloud"></i>
-            </div>
-            67°F/19°C
-          </h5>
+         <div class="col-4 hourlyForecast" > 
+        <h5><span id="hourlyForecast">☀️🌤⛅️🌥🌦☁️🌨🌩⛈🌧❄️ Weather Forecast</span></h5>
         </div>
       </div>
       <h6>5 Day Forecast</h6>

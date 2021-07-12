@@ -49,21 +49,28 @@ function formatDay(datestamp) {
 
   return days[day];
 }
+function formatSunTime(sunTime) {
+  console.log(sunTime);
+  let sunTimeMS = sunTime * 1000;
+  let dateObject = new Date(sunTimeMS);
+
+  return dateObject.toLocaleString("en-US", {
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+  });
+}
+
+function formatHour(timestamp) {
+  let time = new Date(timestamp * 1000);
+  let hour = time.getHours();
+  return time.toLocaleString("en-US", {
+    hour: "numeric",
+  });
+}
 
 function displayForecast(response) {
   console.log(response.data);
-  console.log(response.data.timezone_offset);
-  function formatTime(sunTime) {
-    console.log(sunTime);
-    let sunTimeMS = sunTime * 1000;
-    let dateObject = new Date(sunTimeMS);
-
-    return dateObject.toLocaleString("en-US", {
-      hour: "numeric",
-      minute: "numeric",
-      second: "numeric",
-    });
-  }
   let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
 
@@ -100,18 +107,68 @@ function displayForecast(response) {
   );
   document.querySelector("#precipitation").innerHTML =
     response.data.hourly[0].pop * 100;
-  document.querySelector("#sunrise").innerHTML = `${formatTime(
+  document.querySelector("#sunrise").innerHTML = `${formatSunTime(
     response.data.daily[0].sunrise
   )}`;
-  document.querySelector("#sunset").innerHTML = `${formatTime(
+  document.querySelector("#sunset").innerHTML = `${formatSunTime(
     response.data.daily[0].sunset
   )}`;
+}
+
+function displayHour(response) {
+  console.log(response.data);
+  let hourlyForecast = response.data.hourly;
+  let hourElement = document.querySelector("#hours");
+
+  let hourHTML = `<div>`;
+  hourlyForecast.forEach(function (forecastHourly, index) {
+    if (index < 4) {
+      hourHTML =
+        hourHTML +
+        `
+      <div class="weather-forecast-hour">${formatHour(
+        forecastHourly.dt
+      )}</div>`;
+    }
+  });
+  hourHTML = hourHTML + "</div>";
+  hourElement.innerHTML = hourHTML;
+}
+
+function displayHourlyForecast(response) {
+  console.log(response.data);
+  let hourlyForecast = response.data.hourly;
+  let hourlyForecastElement = document.querySelector("#hourlyForecast");
+
+  let hourlyHTML = `<div>`;
+  hourlyForecast.forEach(function (forecastHourly, index) {
+    if (index < 4) {
+      hourlyHTML =
+        hourlyHTML +
+        `
+      <img src= "http://openweathermap.org/img/wn/${
+        forecastHourly.weather[0].icon
+      }@2x.png" width="42" />
+      <span class="weather-forecast-hr-temp"> ${Math.round(
+        forecastHourly.temp
+      )}°F </span>
+      <div class="weather-forecast-hr-description"> ${
+        forecastHourly.weather[0].description
+      }
+      </div>
+      `;
+    }
+  });
+  hourlyHTML = hourlyHTML + "</div>";
+  hourlyForecastElement.innerHTML = hourlyHTML;
 }
 
 function getForecast(coordinates) {
   let apiKey = "90f1d53b11df0bd6f29722974b5c486b";
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=imperial`;
   axios.get(apiUrl).then(displayForecast);
+  axios.get(apiUrl).then(displayHour);
+  axios.get(apiUrl).then(displayHourlyForecast);
 }
 
 function showWeather(response) {
@@ -143,7 +200,6 @@ function showCity(cityElement) {
   let units = "imperial";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityElement}&appid=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(showWeather);
-  console.log(apiUrl);
 }
 
 function handleSubmit(event) {
