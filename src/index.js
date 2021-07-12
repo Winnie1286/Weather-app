@@ -49,28 +49,19 @@ function formatDay(datestamp) {
 
   return days[day];
 }
-function formatSunTime(sunTime) {
-  console.log(sunTime);
-  let sunTimeMS = sunTime * 1000;
-  let dateObject = new Date(sunTimeMS);
-
-  return dateObject.toLocaleString("en-US", {
-    hour: "numeric",
-    minute: "numeric",
-    second: "numeric",
-  });
-}
-
-function formatHour(timestamp) {
-  let time = new Date(timestamp * 1000);
-  let hour = time.getHours();
-  return time.toLocaleString("en-US", {
-    hour: "numeric",
-  });
-}
 
 function displayForecast(response) {
-  console.log(response.data);
+  function formatSunTime(sunTime) {
+    let sunTimeMS = sunTime * 1000;
+    let dateObject = new Date(sunTimeMS);
+
+    return dateObject.toLocaleString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+      timeZone: `${response.data.timezone}`,
+    });
+  }
   let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
 
@@ -116,7 +107,13 @@ function displayForecast(response) {
 }
 
 function displayHour(response) {
-  console.log(response.data);
+  function formatHour(timestamp) {
+    let time = new Date(timestamp * 1000);
+    return time.toLocaleString("en-US", {
+      hour: "numeric",
+      timeZone: `${response.data.timezone}`,
+    });
+  }
   let hourlyForecast = response.data.hourly;
   let hourElement = document.querySelector("#hours");
 
@@ -136,7 +133,6 @@ function displayHour(response) {
 }
 
 function displayHourlyForecast(response) {
-  console.log(response.data);
   let hourlyForecast = response.data.hourly;
   let hourlyForecastElement = document.querySelector("#hourlyForecast");
 
